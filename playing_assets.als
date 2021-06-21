@@ -5,9 +5,12 @@ open hand
 open assets_area
 open asset
 
-pred play_asset (c, c': Asset, p: Player) {
-c != c'
-p.hand.top = c
-p.assets.top = c'
+fun play_asset[p: Player]: Asset -> Asset{
+p.hand.top -> p.assets.top
 }
-run play_asset for 4
+
+pred can_play_asset (c, c': Asset, p: Player) {
+play_asset[p][c] = c'
+c != c'
+}
+run can_play_asset for 4
